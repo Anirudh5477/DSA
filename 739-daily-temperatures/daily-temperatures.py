@@ -1,6 +1,7 @@
+from collections import deque
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        stack =[]
+        stack =deque()
         ans = [0]*len(temperatures)
         for i,val in enumerate(temperatures):
             
