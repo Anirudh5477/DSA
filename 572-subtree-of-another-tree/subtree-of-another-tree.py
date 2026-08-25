@@ -7,24 +7,13 @@
 from collections import deque
 class Solution:
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        if subRoot is None:
+            return True
         if root is None:
-            if subRoot is None:
-                return True
-            else:
-                return False
-        q = deque()
-        q.append(root)
-        while q:
-            node = q.popleft()
-            if node.val == subRoot.val:
-                ans = self.isSameTree(node,subRoot)
-                if ans:
-                    return True
-            if node.left:
-                q.append(node.left)
-            if node.right:
-                q.append(node.right)
-        return False
+            return False
+        if self.isSameTree(root,subRoot):
+            return True
+        return self.isSubtree(root.left,subRoot) or self.isSubtree(root.right,subRoot)
 
 
 
