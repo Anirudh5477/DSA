@@ -6,16 +6,27 @@ class Solution:
         ans_freq = []
         for num, freq in counts.items() : 
             if len(ans) < k:
-                ans.append(num)
-                ans_freq.append(freq)
+                j = len(ans)
+                if j == 0:
+                    ans.append(num)
+                    ans_freq.append(freq)
+                    continue
+                while freq > ans_freq[j-1]:
+                    j-=1
+                    if j == 0:
+                        break 
+                ans.insert(j, num)
+                ans_freq.insert(j, freq)
             else:
-                minim = 0
-                for i in range(len(ans_freq)):
-                    if ans_freq[i] < ans_freq[minim]:
-                        minim = i
-                if freq > ans_freq[minim]:
-                    ans[minim] = num
-                    ans_freq[minim] = freq
+                j = len(ans)
+                while freq > ans_freq[j-1]:
+                    j-=1
+                    if j == 0:
+                        break
+                ans.insert(j,num)
+                ans_freq.insert(j,freq)
+                ans.pop()
+                ans_freq.pop()
         return ans
                     
 
