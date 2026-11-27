@@ -1,15 +1,14 @@
 class Solution:
-    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
-        cars = sorted(zip(position,speed))
-        times = [(target-p)/s for p,s in cars]
-        ans=0
-        while len(times)>1:
-            curr = times.pop()
-            if curr<times[-1]:
-                ans+=1
-            else:
-                times[-1] = curr
-        return ans + 1
-
-
-        
+    def carFleet(self, target: int, position: list[int], speed: list[int]) -> int:
+        sorted_pos = sorted(zip(position, speed))
+        l = []
+        n = len(position)
+        for i in range(n):
+            pos, s = sorted_pos[n - i -1]
+            t = (target - pos)/s
+            if not l:
+                l.append(t)
+            t_prev = l[-1]
+            if t > t_prev : 
+                l.append(t)
+        return len(l)
